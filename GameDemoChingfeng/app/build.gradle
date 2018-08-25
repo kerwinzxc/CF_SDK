@@ -1,0 +1,126 @@
+apply plugin: 'com.android.application'
+apply from: "../HuoSdkLib/config/productFlavorsConfig.gradle"
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion '27.0.3'
+    
+    defaultConfig {
+        applicationId "com.etsdk.sdkdemo"
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+
+//    compileSdkVersion 28
+//    defaultConfig {
+//        applicationId "com.etsdk.sdkdemo"
+//        minSdkVersion 15
+//        targetSdkVersion 28
+//        versionCode 1
+//        versionName "1.0"
+//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+//    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile("proguard-android.txt"),  "proguard-rules.pro"
+            // 批量打包
+//            applicationVariants.all { variant ->
+//                variant.outputs.each { output ->
+//                    def outputFile = output.outputFile
+//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                        //输出apk名称为：渠道名_版本名_时间.apk
+//                        def fileName = "${variant.productFlavors[0].name}_v${defaultConfig.versionName}_${defaultConfig.versionCode}_${releaseTime()}.apk"
+//                        String outputsPath=outputFile.parent.substring(0,outputFile.parent.indexOf("apk"));
+//                        //outputs+渠道名 组成的目录
+//                        File newOutfileDir=new File(outputsPath,"${variant.productFlavors[0].name}");
+//                        if(newOutfileDir.exists()){
+//                            newOutfileDir.delete();
+//                        }
+//                        newOutfileDir.mkdirs();
+//                        //apk位置 outputs/渠道名/xxx.apk
+////                        output.outputFile = new File(newOutfileDir, fileName);
+////                        String channelName="${variant.productFlavors[0].name}";
+//
+//                        output.outputFileName = fileName;
+//                    }
+//                }
+//            }
+        }
+        debug{
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+        }
+    }
+    sourceSets{
+        main{
+            jniLibs.srcDirs=['libs']
+        }
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+    //签名信息
+    signingConfigs {
+        debug {
+            storeFile file("key/huoapp_key.jks")
+            storePassword "huoapp"
+            keyAlias "huoshu"
+            keyPassword "huoapp"
+            v2SigningEnabled false
+        }
+    }
+    //移除lint检测的error
+    lintOptions {
+        abortOnError false
+    }
+}
+
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+dependencies {
+
+//    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+//    implementation 'com.android.support:appcompat-v7:28.0.0-beta01'
+//    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation project (':HuoSdkLib')
+
+}
+//dependencies {
+//    compile fileTree(include: ['*.jar'], dir: 'libs')
+//    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+//        exclude group: 'com.android.support', module: 'support-annotations'
+//    })
+//    testCompile 'junit:junit:4.12'
+//    //compile project(':HuoSdkLib')
+//    implementation project (':HuoSdkLib')
+//}
+
+buildscript {
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.4'
+    }
+    repositories {
+        jcenter()
+        google()
+    }
+}
