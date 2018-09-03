@@ -41,6 +41,7 @@ import com.game.sdk.http.SdkApi;
 import com.game.sdk.listener.OnLoginListener;
 import com.game.sdk.log.L;
 import com.game.sdk.log.T;
+import com.game.sdk.pkproxy.PkProxy;
 import com.game.sdk.plugin.IHuoLogin;
 import com.game.sdk.ui.FloatWebActivity;
 import com.game.sdk.ui.HuoLoginActivity;
@@ -332,13 +333,15 @@ public class HuoLoginView extends FrameLayout implements View.OnClickListener {
                         UserLoginInfodao.getInstance(loginActivity).saveUserLoginInfo(account, password);
                     }
                 }
+                Log.e(TAG,"登陆成功!@!@："+ GsonUtil.getGson().toJson(data));
             }
         };
         httpCallbackDecode.setShowTs(true);
         httpCallbackDecode.setLoadingCancel(false);
         httpCallbackDecode.setShowLoading(true);
         httpCallbackDecode.setLoadMsg("正在登录...");
-        RxVolley.post(SdkApi.getLogin(), httpParamsBuild.getHttpParams(),httpCallbackDecode);
+        //RxVolley.post(SdkApi.getLogin(), httpParamsBuild.getHttpParams(),httpCallbackDecode);
+        PkProxy.postLogin(loginRequestBean,httpCallbackDecode);
     }
     private void userselect(View v,int width) {
         L.e(TAG,"width="+width);

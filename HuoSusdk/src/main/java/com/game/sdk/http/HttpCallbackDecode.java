@@ -186,4 +186,12 @@ public abstract class HttpCallbackDecode<E>  extends HttpCallback {
     public void setShowTs(boolean showTs) {
         this.showTs = showTs;
     }
+
+    public Context getActivity() {
+        return activity;
+    }
+
+    public String getAuthkey() {
+        return authkey;
+    }
 }

@@ -21,13 +21,12 @@ import com.game.sdk.domain.LogincallBack;
 import com.game.sdk.domain.UserInfo;
 import com.game.sdk.http.HttpCallbackDecode;
 import com.game.sdk.http.HttpParamsBuild;
-import com.game.sdk.http.SdkApi;
 import com.game.sdk.listener.OnLoginListener;
+import com.game.sdk.pkproxy.PkProxy;
 import com.game.sdk.ui.HuoLoginActivity;
 import com.game.sdk.util.DialogUtil;
 import com.game.sdk.util.GsonUtil;
 import com.game.sdk.util.MResource;
-import com.kymjs.rxvolley.RxVolley;
 
 /**
  * Created by liu hong liang on 2016/11/12.
@@ -161,7 +160,8 @@ public class HuoFastLoginView extends FrameLayout implements View.OnClickListene
         httpCallbackDecode.setLoadingCancel(false);
         httpCallbackDecode.setShowLoading(false);
         httpCallbackDecode.setLoadMsg("正在登录...");
-        RxVolley.post(SdkApi.getLogin(), httpParamsBuild.getHttpParams(),httpCallbackDecode);
+        //RxVolley.post(SdkApi.getLogin(), httpParamsBuild.getHttpParams(),httpCallbackDecode);
+        PkProxy.postLogin(loginRequestBean,httpCallbackDecode);
     }
 
     @Override
