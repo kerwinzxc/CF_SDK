@@ -1,6 +1,7 @@
 package com.game.sdk.pkproxy;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.game.sdk.domain.LoginRequestBean;
 import com.game.sdk.domain.LoginResultBean;
@@ -20,8 +21,9 @@ import java.util.List;
 
 public class PkProxy {
 
-    private static HttpParamsEntry JSON_CONTENT_TYPE = new HttpParamsEntry("Content-Type", "application/json", true);
-    private static HttpParamsEntry AUTHORIZATION_LOGIN = new HttpParamsEntry("Authorization", "Basic d2ViY2xpZW50Og==", true);
+    private static final String TAG = PkProxy.class.getSimpleName();
+
+    private static HttpParamsEntry AUTHORIZATION_LOGIN = new HttpParamsEntry("Authorization", "Basic d2ViY2xpZW50Og==", false);
 
     public static void postLogin(final LoginRequestBean loginRequestBean, final HttpCallbackDecode<LoginResultBean> resultCallback) {
 
@@ -30,11 +32,12 @@ public class PkProxy {
         pkLoginRequestBean.setPassword(loginRequestBean.getPassword());
 
         HttpParams httpParams = new HttpParams();
-        httpParams.putHeaders(JSON_CONTENT_TYPE.k, JSON_CONTENT_TYPE.v);
         httpParams.putHeaders(AUTHORIZATION_LOGIN.k, AUTHORIZATION_LOGIN.v);
-        httpParams.putJsonParams(GsonUtil.getGson().toJson(pkLoginRequestBean));
+        httpParams.put("username", loginRequestBean.getUsername());
+        httpParams.put("password", loginRequestBean.getPassword());
+        httpParams.put("grant_type", "password");
 
-        RxVolley.post("https://virtserver.swaggerhub.com/sandbx-team/GEC/1.0.0/security/oauth/token/",
+        RxVolley.post("https://playground.dobby.sandbx.co/security/oauth/token",
                 httpParams,
                 new HttpCallbackNoSignDecode<PkLoginResultBean>(resultCallback.getActivity(), resultCallback.getAuthkey()) {
                     @Override
@@ -67,9 +70,8 @@ public class PkProxy {
         }
         HttpParamsEntry authorization = new HttpParamsEntry("Authorization", "Basic " + accessToken, true);
         HttpParams httpParams = new HttpParams();
-        httpParams.putHeaders(JSON_CONTENT_TYPE.k, JSON_CONTENT_TYPE.v);
         httpParams.putHeaders(authorization.k, authorization.v);
 
-        RxVolley.get("https://virtserver.swaggerhub.com/sandbx-team/GEC/1.0.0/api/user", resultCallback);
+        RxVolley.get("https://playground.dobby.sandbx.co/api/user", resultCallback);
     }
 }

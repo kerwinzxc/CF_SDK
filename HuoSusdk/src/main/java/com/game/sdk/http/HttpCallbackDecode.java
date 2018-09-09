@@ -37,6 +37,7 @@ public abstract class HttpCallbackDecode<E>  extends HttpCallback {
     private boolean loadingCancel=true;
     private boolean showTs=false;
     private String loadMsg="加载中，请稍后……";
+
     private Context activity;
     private String authkey;
 
@@ -45,8 +46,8 @@ public abstract class HttpCallbackDecode<E>  extends HttpCallback {
         this.authkey=authkey;
     }
     @Override
-    public final void onSuccess(String t) {
-        L.d(TAG,"http_result="+t);
+    public void onSuccess(String t) {
+        Log.d(TAG,"http_result="+t);
         try{
             JSONObject object=new JSONObject(t);
             String data = object.optString("data");
@@ -111,7 +112,7 @@ public abstract class HttpCallbackDecode<E>  extends HttpCallback {
 
     @Override
     public final void onFailure(int errorNo, String strMsg, String completionInfo) {
-        Log.d(TAG,"onFailure="+completionInfo);
+        Log.d(TAG,"onFailure="+completionInfo + "/errorNo:" + errorNo+ "/strMsg:" + strMsg);
         onFailure(""+errorNo,"连接失败，请稍后重试！");
     }
     public void onFailure(String code,String msg){

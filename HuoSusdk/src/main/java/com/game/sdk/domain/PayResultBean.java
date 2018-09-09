@@ -11,9 +11,6 @@ public class PayResultBean {
     private String token	;//是	STRING	对应支付的token
     private String status	;//游戏币必须	INT	paytype为gamepay时,标识游戏币支付状态 1未支付 2 成功 3 失败
 
-
-
-
     public String getPaytype() {
         return paytype;
     }
