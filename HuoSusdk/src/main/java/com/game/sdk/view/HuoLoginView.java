@@ -125,6 +125,8 @@ public class HuoLoginView extends FrameLayout implements View.OnClickListener {
         huo_btn_loginSubmitForgetPwd= (Button) findViewById(MResource.getIdByName(getContext(),"R.id.huo_sdk_btn_loginSubmitForgetPwd"));
         huo_btn_loginSubmit= (Button) findViewById(MResource.getIdByName(getContext(),"R.id.huo_sdk_btn_loginSubmit"));
         huoLlLoginRegister= (LinearLayout) findViewById(MResource.getIdByName(getContext(),"R.id.huo_sdk_ll_loginRegister"));
+        //TODO : add register
+        huoLlLoginRegister.setVisibility(INVISIBLE);
         huo_iv_loginUserSelect= (ImageView) findViewById(MResource.getIdByName(getContext(),"R.id.huo_sdk_iv_loginUserSelect"));
         huo_rl_loginAccount= (RelativeLayout) findViewById(MResource.getIdByName(getContext(),"R.id.huo_sdk_rl_loginAccount"));
         huo_iv_logo= (ImageView) findViewById(MResource.getIdByName(getContext(),"R.id.huo_sdk_iv_logo"));
@@ -218,20 +220,24 @@ public class HuoLoginView extends FrameLayout implements View.OnClickListener {
             }
         }else if(view.getId()== huo_btn_loginSubmitForgetPwd.getId()){
             HttpParamsBuild httpParamsBuild=new HttpParamsBuild(GsonUtil.getGson().toJson(new WebRequestBean()));
+            // TODO ： Need to update forget password workflow
             FloatWebActivity.start(loginActivity, SdkApi.getWebForgetpwd(),"忘记密码",
                     httpParamsBuild.getHttpParams().getUrlParams().toString(),httpParamsBuild.getAuthkey());
         }else if(view.getId()== huo_iv_loginUserSelect.getId()){
             userselect(huo_et_loginAccount,huo_rl_loginAccount.getWidth());
-        }else if(view.getId()==huo_sdk_iv_loginQq.getId()){
-            delayTime200Click(huo_sdk_iv_loginQq);
-            iHuoLogin.loginByThird(getContext(),IHuoLogin.LOGIN_QQ,new MyPlatformActionListener());
-        }else if(view.getId()==huo_sdk_iv_loginWx.getId()){
-            delayTime200Click(huo_sdk_iv_loginWx);
-            iHuoLogin.loginByThird(getContext(),IHuoLogin.LOGIN_WX,new MyPlatformActionListener());
-        }else if(view.getId()==huo_sdk_iv_loginWb.getId()){
-            delayTime200Click(huo_sdk_iv_loginWb);
-            iHuoLogin.loginByThird(getContext(),IHuoLogin.LOGIN_XLWB,new MyPlatformActionListener());
         }
+
+        //comment, since there is no QQ, wx and wb support right now.
+//        else if(view.getId()==huo_sdk_iv_loginQq.getId()){
+//            delayTime200Click(huo_sdk_iv_loginQq);
+//            iHuoLogin.loginByThird(getContext(),IHuoLogin.LOGIN_QQ,new MyPlatformActionListener());
+//        }else if(view.getId()==huo_sdk_iv_loginWx.getId()){
+//            delayTime200Click(huo_sdk_iv_loginWx);
+//            iHuoLogin.loginByThird(getContext(),IHuoLogin.LOGIN_WX,new MyPlatformActionListener());
+//        }else if(view.getId()==huo_sdk_iv_loginWb.getId()){
+//            delayTime200Click(huo_sdk_iv_loginWb);
+//            iHuoLogin.loginByThird(getContext(),IHuoLogin.LOGIN_XLWB,new MyPlatformActionListener());
+//        }
     }
     private void delayTime200Click(final View view){
         view.setEnabled(false);

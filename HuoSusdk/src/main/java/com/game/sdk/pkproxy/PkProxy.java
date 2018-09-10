@@ -1,7 +1,6 @@
 package com.game.sdk.pkproxy;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.game.sdk.domain.LoginRequestBean;
 import com.game.sdk.domain.LoginResultBean;
@@ -11,7 +10,6 @@ import com.game.sdk.domain.pk.PkLoginResultBean;
 import com.game.sdk.domain.pk.PkUserInfo;
 import com.game.sdk.http.HttpCallbackDecode;
 import com.game.sdk.http.HttpCallbackNoSignDecode;
-import com.game.sdk.util.GsonUtil;
 import com.kymjs.rxvolley.RxVolley;
 import com.kymjs.rxvolley.client.HttpParams;
 import com.kymjs.rxvolley.toolbox.HttpParamsEntry;
