@@ -1,6 +1,7 @@
 package com.game.sdk.http;
 
 import android.util.Base64;
+import android.util.Log;
 
 import com.game.sdk.SdkConstant;
 import com.game.sdk.domain.NotProguard;
@@ -32,6 +33,7 @@ public class HttpParamsBuild {
     private HttpParams httpParams;
     public HttpParamsBuild(String jsonParam) {
         this.jsonParam = jsonParam;
+        Log.d(TAG,"jsonParam:" + jsonParam);
         //encodeDataPW();
         encodeData();
     }
@@ -75,11 +77,11 @@ public class HttpParamsBuild {
         long time=System.currentTimeMillis()+ SdkConstant.SERVER_TIME_INTERVAL;
         StringBuffer keyBuffer=new StringBuffer(SdkConstant.HS_CLIENTID).append("_")
                 .append(time).append("_").append(randCh);
-        L.e(TAG,"key加密前："+keyBuffer);
+        Log.e(TAG,"key加密前："+keyBuffer);
         String key=null;
         try {
             key= new String(RSAUtils.encryptByPublicKey(keyBuffer.toString().getBytes(), SdkConstant.RSA_PUBLIC_KEY), "utf-8");
-            L.e(TAG,"key公钥加密后："+key);
+            Log.e(TAG,"key公钥加密后："+key);
             //生成key
             httpParams.put("key",key);
         } catch (Exception e) {
@@ -90,9 +92,9 @@ public class HttpParamsBuild {
 //        7、将requestdata与 authkey 对称加密并 URLencoding 得到请求参数  `data`
         StringBuffer dataKeyBuffer=new StringBuffer(SdkConstant.HS_CLIENTKEY).append(randCh);
         this.authkey=dataKeyBuffer.toString();
-        L.e(TAG,"data加密前1："+jsonParam);
+        Log.e(TAG,"data加密前1："+jsonParam);
         String data = AuthCodeUtil.authcodeEncode(jsonParam, authkey);
-        L.e(TAG,"key:"+key+"\ndata:"+data);
+        Log.e(TAG,"key:"+key+"\ndata:"+data);
         httpParams.put("data",data);
         for(HttpParamsEntry httpParamsEntry:mHeaders){
             httpParams.putHeaders(httpParamsEntry.k,httpParamsEntry.v);

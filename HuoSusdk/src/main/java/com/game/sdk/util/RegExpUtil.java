@@ -10,12 +10,10 @@ import java.util.regex.Pattern;
 public class RegExpUtil {
 
     public static boolean isMatchAccount(String data){
-        Pattern pattern = Pattern.compile("[1234567890A-Za-z]{6,16}");
-        return pattern.matcher(data).matches();
+        return true;
     }
     public static boolean isMatchPassword(String data){
-        Pattern pattern = Pattern.compile("[1234567890A-Za-z]{6,16}");
-        return pattern.matcher(data).matches();
+        return true;
     }
     /**
      * 判断是否是手机号码

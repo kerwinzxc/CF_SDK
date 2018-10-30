@@ -22,7 +22,8 @@ public class SdkApi {
     private static String getRequestUrl(){
 
         //SdkConstant.BASE_URL = "https://playground.dobby.sandbx.co"; //powerkingdom api
-        SdkConstant.BASE_URL = "http://api.520cai.cn";//ching feng
+        //SdkConstant.BASE_URL = "http://api.520cai.cn";//ching feng
+        SdkConstant.BASE_URL = "http://192.168.1.190";//ching feng
         //SdkConstant.BASE_URL = "http://api.13.251.85.31";
 
         if(!TextUtils.isEmpty(requestUrl)){

@@ -292,6 +292,8 @@ public class HuosdkInnerManager {
         httpCallbackDecode.setShowTs(false);
         httpCallbackDecode.setLoadingCancel(false);
         httpCallbackDecode.setShowLoading(false);//对话框继续使用install接口，在startup联网结束后，自动结束等待loading
+        Log.d(TAG, "URL:" + SdkApi.getStartup());
+        Log.d(TAG, "httpParamsBuild:" + httpParamsBuild.getHttpParams());
         RxVolley.post(SdkApi.getStartup(), httpParamsBuild.getHttpParams(), httpCallbackDecode);
     }
 
@@ -338,6 +340,7 @@ public class HuosdkInnerManager {
         httpCallbackDecode.setShowTs(false);
         httpCallbackDecode.setLoadingCancel(false);
         httpCallbackDecode.setShowLoading(false);
+        Log.d(TAG, "URL:" + SdkApi.getLogout());
         RxVolley.post(SdkApi.getLogout(), httpParamsBuild.getHttpParams(),httpCallbackDecode);
     }
 
